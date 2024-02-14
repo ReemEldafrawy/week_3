@@ -1,0 +1,181 @@
+#include <iostream>
+using namespace std;
+struct node {
+    int item;
+    node* next;
+    node* prev;
+};
+class doublelinkedlist {
+
+    node* first;
+    node* last;
+    int counter;
+
+public:
+    doublelinkedlist()
+    {
+        first, last = NULL;
+        counter = 0;
+
+    }
+
+    void insertend(int value)
+    {
+        node* newnode = new node;
+        newnode->item = value;
+        if (first == NULL)
+        {
+            newnode->next = newnode->prev = NULL;
+            first = last = newnode;
+        }
+        else
+        {
+            newnode->next = NULL;
+            newnode->prev = last;
+            last->next = newnode;
+            last = newnode;
+        }
+        counter++;
+
+
+
+
+
+    }
+    void display()
+    {
+        if (first == NULL)
+        {
+            cout << "double linked list is empty...\n";
+        }
+        else
+        {
+            node* current = first;
+            while (current != NULL)
+            {
+                cout << current->item << "   ";
+                current = current->next;
+            }
+
+
+
+
+        }
+
+
+
+
+
+
+
+    }
+    void remove_first()
+    {
+        if (counter == 0)
+        {
+            cout << "double linked list is empty..\n";
+        }
+        else if (counter == 1)
+        {
+            delete(first);
+            first = last = NULL;
+        }
+        else
+        {
+            node* current = first;
+            first = first->next;
+            first->prev = NULL;
+            delete(current);
+
+
+
+
+        }
+
+        counter--;
+
+
+
+    }
+    void remove_last()
+    {
+        if (counter == 0)
+        {
+            cout << "double linked list is empty....\n";
+        }
+        else if (counter == 1)
+        {
+            delete(first);
+            first = last = NULL;
+        }
+        else
+        {
+            node* current = last;
+            last = last->prev;
+            last->next = NULL;
+            delete(current);
+
+        }
+        counter--;
+
+
+
+
+
+
+    }
+    bool palindrome()
+    {
+       
+        node* current = first;
+        node* end = last;   
+        while (current != NULL && current->next != NULL)
+        {
+            if (current->item != end->item)
+            {
+                return false;
+                
+
+            }
+
+
+            current = current->next;
+            end = end->prev;
+            
+            
+
+        }
+        return true;
+       
+
+
+
+
+
+
+
+
+  }
+
+
+
+};
+
+int main()
+{
+
+    doublelinkedlist l;
+    l.insertend(1);
+    l.insertend(3);
+    l.insertend(3);
+    l.insertend(1);
+    //l.insertend(5);
+   // l.insertend(7);
+    // l.insertend(4);
+    // l.insertend(4);q
+    l.display();
+    cout << endl;
+    cout << l.palindrome() << "\n";
+    
+
+}
