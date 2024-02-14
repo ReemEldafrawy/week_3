@@ -1,0 +1,32 @@
+Node * removeDuplicates(Node *head)
+{
+if(head==NULL)
+{
+    cout<<"linked list is empty\n";
+}
+else
+{
+Node*current=head;
+while(current!=NULL&&current->next!=NULL)
+{
+Node*del=current->next;
+if(current->data==del->data)
+{
+    current->next=del->next;
+    if (del->next != NULL) {  //important condition
+      del->next->prev = current;
+    }
+    delete (del);
+}
+else{
+    current=current->next;
+}
+
+
+}
+
+}
+
+return head;    
+}
+
