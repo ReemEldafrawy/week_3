@@ -1,0 +1,199 @@
+#include <iostream>
+using namespace std;
+struct node {
+    int item;
+    node* next;
+    node* prev;
+};
+class doublelinkedlist {
+
+    node* first;
+    node* last;
+    int counter;
+
+public:
+    doublelinkedlist()
+    {
+        first, last = NULL;
+        counter = 0;
+
+    }
+
+    void insertend(int value)
+    {
+        node* newnode = new node;
+        newnode->item = value;
+        if (first == NULL)
+        {
+            newnode->next = newnode->prev = NULL;
+            first = last = newnode;
+        }
+        else
+        {
+            newnode->next = NULL;
+            newnode->prev = last;
+            last->next = newnode;
+            last = newnode;
+        }
+        counter++;
+
+
+
+
+
+    }
+    void display()
+    {
+        if (first == NULL)
+        {
+            cout << "double linked list is empty...\n";
+        }
+        else
+        {
+            node* current = first;
+            while (current != NULL)
+            {
+                cout << current->item << "   ";
+                current = current->next;
+            }
+
+
+
+
+        }
+
+
+
+
+
+
+
+    }
+    void remove_first()
+    {
+        if (counter == 0)
+        {
+            cout << "double linked list is empty..\n";
+        }
+        else if (counter == 1)
+        {
+            delete(first);
+            first = last = NULL;
+        }
+        else
+        {
+            node* current = first;
+            first = first->next;
+            first->prev = NULL;
+            delete(current);
+
+
+
+
+        }
+
+        counter--;
+
+
+
+    }
+    void remove_last()
+    {
+        if (counter == 0)
+        {
+            cout << "double linked list is empty....\n";
+        }
+        else if (counter == 1)
+        {
+            delete(first);
+            first = last = NULL;
+        }
+        else
+        {
+            node* current = last;
+            last = last->prev;
+            last->next = NULL;
+            delete(current);
+
+        }
+        counter--;
+
+
+
+
+
+
+    }
+    void swap_forward_with_backward(int k)
+    {
+        if (first == NULL)
+        {
+            cout << "linked list is empty\n";
+        }
+        else
+        {
+            node* start = first;
+            int counter = 1;
+            while (start != NULL && counter <k)
+            {
+                start = start->next;
+                counter++;
+            }
+            if (start == NULL)
+            {
+                cout << "position is not found\n";
+                return;
+            }
+
+            node* tempprev = start->prev;
+            node* tempnext = start->next;
+            start->next = tempprev;
+            start->prev = tempnext;
+            if (tempprev != NULL)
+            {
+                tempprev->next = start;
+            }
+            if (tempnext != NULL)
+            {
+                tempnext->prev = start;
+            }
+
+            if (start->prev == NULL)
+            {
+                first = start->next;
+            }
+           
+
+        }
+
+
+    }
+
+};
+
+int main()
+{
+
+    doublelinkedlist l;
+    l.insertend(5);
+    l.insertend(2);
+    l.insertend(5);
+    l.insertend(4);
+    //l.insertend(5);
+   // l.insertend(4);
+   // l.insertend(4);
+    l.swap_forward_with_backward(1);
+    
+    l.display();
+
+}
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started: 
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
